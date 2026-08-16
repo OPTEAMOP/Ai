@@ -1,0 +1,136 @@
+import { SlashCommandInfo, UserProfile } from '../types';
+
+export const PRESET_USERS: UserProfile[] = [
+  {
+    id: 'user_prabhjot',
+    name: 'Prabhjot',
+    displayName: 'Prabhjot',
+    email: 'prabhjot.singh@omnisym.ai',
+    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+    photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+    badge: 'Google Verified',
+    isGuest: false,
+  },
+  {
+    id: 'user_alex',
+    name: 'Alex Rivera',
+    displayName: 'Alex Rivera',
+    email: 'alex.rivera@creative.dev',
+    avatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=150&auto=format&fit=crop&q=80',
+    photoURL: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=150&auto=format&fit=crop&q=80',
+    badge: 'Google Verified',
+    isGuest: false,
+  },
+  {
+    id: 'user_guest',
+    name: 'Guest Explorer',
+    displayName: 'Guest Explorer',
+    email: 'guest@omnisym.local',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    photoURL: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    badge: 'Guest Session',
+    isGuest: true,
+  },
+];
+
+export const SLASH_COMMANDS: SlashCommandInfo[] = [
+  {
+    command: '/code',
+    type: 'code',
+    title: 'Write Code & Architect',
+    description: 'Senior engineer mode for optimized code, refactoring & algorithms',
+    iconName: 'Code2',
+    badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    example: '/code Build a React hook for debounced window resize listener',
+  },
+  {
+    command: '/research',
+    type: 'research',
+    title: 'Deep Web Research',
+    description: 'Ground answers in real-time Google search data with verified citations',
+    iconName: 'Search',
+    badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+    example: '/research Latest breakthroughs in quantum computing and room-temp superconductors',
+  },
+  {
+    command: '/3d',
+    type: '3d',
+    title: '3D & Spatial Assets',
+    description: 'Generate 3D prompts, Three.js scenes, shaders, and geometry definitions',
+    iconName: 'Box',
+    badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
+    example: '/3d Generate a glowing holographic torus knot wireframe in Three.js',
+  },
+  {
+    command: '/human',
+    type: 'human',
+    title: 'Empathetic Human Mode',
+    description: 'Warm, conversational partner with high emotional intelligence & depth',
+    iconName: 'HeartHandshake',
+    badgeColor: 'bg-rose-50 text-rose-700 border-rose-200',
+    example: '/human Help me reflect on balancing technical ambition with personal wellbeing',
+  },
+  {
+    command: '/temp',
+    type: 'temp',
+    title: 'Incognito Ephemeral Chat',
+    description: 'Temporary session with zero logs and no history retention',
+    iconName: 'ShieldAlert',
+    badgeColor: 'bg-amber-50 text-amber-700 border-amber-200',
+    example: '/temp Quick confidential brainstorm',
+  },
+];
+
+export const QUICK_SUGGESTIONS = [
+  {
+    id: 'sug_foryou',
+    label: 'For You',
+    icon: 'Sparkles',
+    prompt: 'Summarize key emerging AI developments and what I should prioritize learning this week.',
+    color: 'hover:border-violet-300 hover:bg-violet-50/50',
+    iconColor: 'text-violet-600',
+  },
+  {
+    id: 'sug_image',
+    label: 'Generate Image',
+    icon: 'Image',
+    prompt: 'Generate an ultra-modern minimalist architectural glass pavilion at sunset with reflection pool',
+    isImageGen: true,
+    color: 'hover:border-sky-300 hover:bg-sky-50/50',
+    iconColor: 'text-sky-600',
+  },
+  {
+    id: 'sug_code',
+    label: 'Write Code',
+    icon: 'Code2',
+    prompt: '/code Implement a concurrent async worker pool with retry logic and TypeScript types',
+    color: 'hover:border-emerald-300 hover:bg-emerald-50/50',
+    iconColor: 'text-emerald-600',
+  },
+  {
+    id: 'sug_research',
+    label: 'Research',
+    icon: 'Search',
+    prompt: '/research Compare modern web rendering patterns (RSC, Islands, Streaming SSR) with real performance benchmarks',
+    color: 'hover:border-blue-300 hover:bg-blue-50/50',
+    iconColor: 'text-blue-600',
+  },
+  {
+    id: 'sug_3d',
+    label: '3D & Assets',
+    icon: 'Box',
+    prompt: '/3d Create an interactive particle field shader using WebGL and GLSL shaders',
+    color: 'hover:border-purple-300 hover:bg-purple-50/50',
+    iconColor: 'text-purple-600',
+  },
+];
+
+export const FEEDBACK_CATEGORIES = [
+  'Incorrect or hallucinated facts',
+  'Broken or suboptimal code',
+  'Did not follow slash command instructions',
+  'Image generation mismatch',
+  'Style, tone or formatting issue',
+  'Slow latency or network lag',
+  'Other feedback',
+];

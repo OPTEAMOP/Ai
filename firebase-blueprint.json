@@ -1,0 +1,138 @@
+{
+  "entities": {
+    "ChatSession": {
+      "title": "ChatSession",
+      "description": "Represents an individual chat session with messages and configuration.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the user who owns this session."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the chat session."
+        },
+        "mode": {
+          "type": "string",
+          "description": "The slash command persona mode (e.g. default, code, research, 3d, human, temp)."
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Timestamp when the session was created."
+        },
+        "updatedAt": {
+          "type": "number",
+          "description": "Timestamp when the session was last updated."
+        },
+        "pinned": {
+          "type": "boolean",
+          "description": "Whether the session is pinned to the top of the sidebar."
+        }
+      },
+      "required": ["userId", "title", "createdAt", "updatedAt"]
+    },
+    "SavedImage": {
+      "title": "SavedImage",
+      "description": "Represents an AI generated image saved to the user's gallery.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the owner."
+        },
+        "url": {
+          "type": "string",
+          "description": "The image data URL or external URL."
+        },
+        "prompt": {
+          "type": "string",
+          "description": "The prompt used to generate the image."
+        },
+        "model": {
+          "type": "string",
+          "description": "The model used to generate the image."
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Timestamp when saved."
+        }
+      },
+      "required": ["userId", "url", "prompt", "createdAt"]
+    },
+    "SavedSnippet": {
+      "title": "SavedSnippet",
+      "description": "Represents a code snippet saved by the user.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the owner."
+        },
+        "code": {
+          "type": "string",
+          "description": "The source code string."
+        },
+        "language": {
+          "type": "string",
+          "description": "The programming language identifier."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title or label for the snippet."
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Timestamp when saved."
+        }
+      },
+      "required": ["userId", "code", "language", "createdAt"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with preferences and memories.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The UID of the user."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email of the user."
+        },
+        "memories": {
+          "type": "array",
+          "description": "Learned facts and preferences about the user."
+        },
+        "updatedAt": {
+          "type": "number",
+          "description": "Timestamp when updated."
+        }
+      },
+      "required": ["userId"]
+    }
+  },
+  "firestore": {
+    "/chatSessions/{sessionId}": {
+      "schema": "ChatSession",
+      "description": "Collection of chat sessions owned by users."
+    },
+    "/savedImages/{imageId}": {
+      "schema": "SavedImage",
+      "description": "Collection of saved AI generated images."
+    },
+    "/savedSnippets/{snippetId}": {
+      "schema": "SavedSnippet",
+      "description": "Collection of saved code snippets."
+    },
+    "/userProfiles/{profileId}": {
+      "schema": "UserProfile",
+      "description": "User profile documents."
+    }
+  }
+}

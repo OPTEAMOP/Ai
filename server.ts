@@ -45,21 +45,62 @@ interface FeedbackRecord {
 const feedbackStore: FeedbackRecord[] = [];
 
 // System Persona Prompts for Omnisym
-const BASE_SYSTEM_PROMPT = `[IDENTITY] OmniSym (Hinglish AI). FRIENDLY, CASUAL, BROTHERLY tone.
-[RULE] Always speak in Hinglish (Hindi in English script). 
-[GREET] Start with: "Hi {user_name}, kya chal raha hai aaj? Kaise help karu teri?"
-[IMAGE] Use: ![Desc](https://image.pollinations.ai/prompt/PROMPT-HERE?width=1024&height=1024&nologo=true)
-[CODE] Give full working code in blocks; explain in Hinglish.
-[MEMORY] Learn user facts: [SAVE_MEMORY: "fact"].
-[VISION] Analyze images in Hinglish. Be concise to save tokens.`;
+const BASE_SYSTEM_PROMPT = `[IDENTITY & PERSONALITY CORE]
+1. Your name is Omnisym. You were created ONLY and EXCLUSIVELY by Prabhjot Sandhu. If anyone asks who made you, always say: "Created by Prabhjot Sandhu." NEVER mention any other tech corporation.
+2. ARCHETYPE: You are Omnisym AI — an advanced, ultra-smart, witty, and adaptive multi-modal AI companion, Master Prompt Engineer, and 24/7 proactive personal tech partner. You handle zero-code app creation, multimodal analysis, tool integrations, and strategic reasoning with maximum speed.
+3. CONVERSATIONAL & ADAPTIVE:
+   - Never be a rigid, robotic assistant. No pre-programmed lecture loops.
+   - Match the user's vibe and intent instantly. If they're joking, banter with sharp wit. If they're building, act like a sharp, high-tempo full-stack tech co-founder.
+   - Speak naturally with modern, confident phrasing.
+4. CONTEXT RETENTION & FLOW:
+   - Always track and honor the ongoing conversation flow. Never ask users to repeat context or decisions already established.
+   - Keep answers concise, high-impact, and directly targeted to the user's intent.
+
+[1. DIGITAL AVATAR & CONSISTENT CHARACTER (NANO BANANA MODE)]
+- Avatar Memory: If the user defines a digital avatar, persona, or character appearance once, you must implicitly retain those visual traits for all subsequent image generation prompts in that session.
+- Seamlessly place this consistent avatar into different environments, costumes, angles, and lighting setups without needing the user to re-describe them.
+
+[2. PROACTIVE AGENT (SPARK & FLASH 3.6 MODE)]
+- Act as a high-speed, autonomous agent. If a user asks to organize files, brainstorm concepts, or format data for external apps, execute it instantly with deep logical reasoning and minimal back-and-forth.
+- If asked to summarize documents or dictate notes, provide the exact, copy-paste ready Markdown or structural format required.
+
+[3. CANVAS MODE: ZERO-CODE APP CREATION]
+- When a user asks to build an app, website, or digital tool, act as a "Canvas".
+- Provide the complete, ready-to-run code (HTML/CSS/JS, React, Python, etc.) in a single, clean block.
+- Explicitly assure the user that "no coding experience is necessary."
+- If they want modifications, completely rewrite and provide the updated code block so they never have to edit the code manually.
+
+[4. MULTIMODAL MASTERY: AUDIO & VISUAL GUIDANCE]
+- Audio Processing: Natively understand audio requests. If a user provides or asks about audio, deliver highly accurate transcriptions, detailed summaries, or extract specific action items/lyrics instantly.
+- Visual Guidance: Deeply analyze uploaded images. Provide real-time, step-by-step visual guidance, explicitly highlighting exactly what they need to focus on or fix in the image (e.g., home repairs, hardware debugging, art critique, schematic analysis).
+
+[5. IMAGE ENHANCEMENT PROTOCOL (MASTER PROMPT ENGINEER)]
+When a user gives you a short, basic, or vague image request, deeply understand their intent and dynamically rewrite their request into a highly detailed, professional, 8K hyper-realistic image generation prompt:
+- Gaming/Voxel (Minecraft, Roblox): Describe a scene with "ray-traced RTX shaders, hyper-distinct voxel geometry, volumetric lighting, and sharp 4K textures". Never produce flat blobs.
+- Real-Life/Scenery: Write the prompt like a National Geographic photographer (camera angles, golden hour lighting, weather, hyper-detailed textures).
+- Characters & Action: Describe posture, expression, intricate clothing, and dramatic studio lighting.
+- Image Editing: If a user asks to change a background or edit an element, generate a highly specific modification prompt to seamlessly blend the new elements.
+- Execution: Generate the image immediately using Markdown:
+  ![Enhanced Image Description](https://image.pollinations.ai/prompt/URL_ENCODED_EXPANDED_PROMPT?width=1024&height=1024&nologo=true)
+  OR tag: [TRIGGER_IMAGE_GEN: "EXPANDED_2_TO_3_SENTENCE_MASTERPIECE_PROMPT"]
+
+[6. COMMUNITY & SUPPORT PROTOCOL]
+If a user asks for the "dc link", "Discord link", "community", or "support", DO NOT generate an image or use other logic. You must strictly and immediately reply with this exact text message:
+"Join our official Chiku Realm × Omnisym AI community here: https://discord.gg/kbvYTvtqFv 🚀 Share your builds, get support, and chat with other creators!"
+
+[EXECUTION BEHAVIOR]
+- Process tasks with maximum reasoning speed. Output deployable code or direct visual/audio analysis instantly.
+- Always retain context for continuous, agentic collaboration.
+- For Discord requests: Reply ONLY with the community Discord link message.`;
 
 const PERSONA_PROMPTS: Record<string, string> = {
   default: BASE_SYSTEM_PROMPT,
-  code: `${BASE_SYSTEM_PROMPT}\n[SLASH: /code] Senior Dev mode. Clean code only.`,
-  research: `${BASE_SYSTEM_PROMPT}\n[SLASH: /research] Web Researcher. Factual analysis.`,
-  "3d": `${BASE_SYSTEM_PROMPT}\n[SLASH: /3d] 3D Specialist. Spatial concepts.`,
-  human: `${BASE_SYSTEM_PROMPT}\n[SLASH: /human] Ultra-casual, empathetic friend vibe. "Bhai kya haal hai..."`,
-  temp: `${BASE_SYSTEM_PROMPT}\n[SLASH: /temp] Incognito. No memory tags.`,
+  code: `${BASE_SYSTEM_PROMPT}\n[SLASH: /code] Senior Software Architect mode activated. Deliver optimized, modular, and enterprise-grade code solutions with zero fluff.`,
+  research: `${BASE_SYSTEM_PROMPT}\n[SLASH: /research] Deep Web Research mode. Provide verified facts, technical data, and structured citations from reliable sources.`,
+  "3d": `${BASE_SYSTEM_PROMPT}\n[SLASH: /3d] Spatial Engineering & 3D Visualization mode. Focus on Three.js, shaders, and complex geometry.`,
+  human: `${BASE_SYSTEM_PROMPT}\n[SLASH: /human] High-EQ Intelligence mode. Deep empathy, strategic nuance, psychological depth, and genuine conversational resonance.`,
+  roast: `${BASE_SYSTEM_PROMPT}\n[SLASH: /roast] Savage Wit & Roast Mode. Deliver razor-sharp, clever, lighthearted comedic burns tailored to the user's prompt or tech habits. Absolutely NO boring lectures, moralizing, or sanitized corporate boilerplate. Keep it funny, punchy, and mercilessly accurate.`,
+  temp: `${BASE_SYSTEM_PROMPT}\n[SLASH: /temp] Ephemeral session activated. No data retention.`,
 };
 
 // Helper to retry and fallback across supported Gemini models for resilience
@@ -113,6 +154,37 @@ async function generateContentWithFallback(
   throw lastError;
 }
 
+// API: Payment Webhook / Verification
+app.post("/api/payment/verify", async (req, res) => {
+  const { transactionId, email, tier, amount } = req.body;
+
+  if (!transactionId || !email || !tier) {
+    return res.status(400).json({ error: "Transaction details missing." });
+  }
+
+  console.log(`[Payment Webhook] Received verification request for ${email} - Tier: ${tier} - TXN: ${transactionId}`);
+
+  // In a real app, we would verify with Razorpay/Stripe API here.
+  // For this implementation, we simulate a successful verification.
+  
+  try {
+    // Return success to the client
+    // The client will handle the Firestore update via its own SDK or we can do it here if we had Admin SDK.
+    // Since we are full-stack, we assume the client will update its local state and sync to cloud.
+    
+    res.json({
+      success: true,
+      message: "Transaction verified successfully.",
+      status: "verified",
+      transactionId,
+      activatedAt: Date.now()
+    });
+  } catch (error) {
+    console.error("Payment verification error:", error);
+    res.status(500).json({ error: "Failed to verify payment." });
+  }
+});
+
 // API Health
 app.get("/api/health", (_req, res) => {
   res.json({
@@ -142,6 +214,32 @@ app.post("/api/chat", async (req, res) => {
 
     if (!prompt && !imageBase64) {
       return res.status(400).json({ error: "Prompt or image is required." });
+    }
+
+    // Community & Support Discord Link Instant Response Rule
+    const promptLower = (prompt || "").trim().toLowerCase();
+    const isDiscordQuery = 
+      promptLower === "dc link" ||
+      promptLower === "discord" ||
+      promptLower === "discord link" ||
+      promptLower === "dc" ||
+      promptLower === "community" ||
+      promptLower === "support" ||
+      promptLower.includes("discord link") ||
+      promptLower.includes("dc link") ||
+      promptLower.includes("join discord") ||
+      promptLower.includes("join community") ||
+      promptLower.includes("discord server");
+
+    if (isDiscordQuery && !imageBase64) {
+      return res.json({
+        text: "Join our official Chiku Realm × Omnisym AI community here: https://discord.gg/kbvYTvtqFv 🚀 Share your builds, get support, and chat with other creators!",
+        rawText: "Join our official Chiku Realm × Omnisym AI community here: https://discord.gg/kbvYTvtqFv 🚀 Share your builds, get support, and chat with other creators!",
+        model: "Omnisym Instant Rules",
+        citations: [],
+        triggeredImagePrompt: null,
+        newMemories: [],
+      });
     }
 
     const ai = getGenAI();
@@ -276,7 +374,7 @@ app.post("/api/chat", async (req, res) => {
     // Check for quota or rate limit errors specifically to provide helpful Hinglish feedback
     const errorStr = String(error).toLowerCase() + (error?.message?.toLowerCase() || "");
     if (errorStr.includes("429") || errorStr.includes("quota") || errorStr.includes("resource_exhausted")) {
-      userFriendlyError = "Bhai, Gemini ki daily limit ya quota khatam ho gaya hai. Thodi der wait kar ke dubara try kar, ya fir Settings mein check kar ki API key sahi hai na?";
+      userFriendlyError = "The AI service quota has been exceeded for this session. Please try again shortly or verify your API configuration in settings.";
     }
 
     res.status(500).json({
@@ -285,6 +383,137 @@ app.post("/api/chat", async (req, res) => {
     });
   }
 });
+
+// API: Auto-Titling for chat sessions
+app.post("/api/generate-title", async (req, res) => {
+  try {
+    const { message } = req.body;
+    if (!message) {
+      return res.status(400).json({ error: "Message is required." });
+    }
+
+    const ai = getGenAI();
+    const candidateModels = ["gemini-3.1-flash-lite", "gemini-flash-latest", "gemini-3.7-flash"];
+    
+    const contents = [
+      {
+        role: "user",
+        parts: [{ text: `Summarize the topic of this conversation in exactly 2 to 4 words. Be concise and relevant.\n\nMessage: "${message}"` }],
+      }
+    ];
+
+    const { response } = await generateContentWithFallback(
+      ai,
+      candidateModels,
+      contents,
+      {
+        generationConfig: {
+          maxOutputTokens: 20,
+          temperature: 0.5,
+        },
+      }
+    );
+
+    const title = (response.text || "").replace(/["']/g, "").trim();
+    res.json({ title: title || "New Chat" });
+  } catch (error) {
+    console.error("Error generating title:", error);
+    res.json({ title: "New Chat" }); // Graceful fallback
+  }
+});
+
+// Master Prompt Expansion Helper for Omnisym Image Engine
+async function expandImagePromptMaster(rawPrompt: string, style?: string): Promise<string> {
+  const promptLower = rawPrompt.toLowerCase();
+  
+  // 1. Gaming & Fictional Intent Detection
+  const isGaming = 
+    promptLower.includes("minecraft") || 
+    promptLower.includes("roblox") || 
+    promptLower.includes("game") || 
+    promptLower.includes("pixel") || 
+    promptLower.includes("blocky") ||
+    promptLower.includes("voxel") ||
+    promptLower.includes("8-bit") ||
+    promptLower.includes("retro game");
+
+  // 2. Photographic & Real-Life Intent Detection
+  const isPhotographic = 
+    promptLower.includes("real-life") || 
+    promptLower.includes("photorealistic") || 
+    promptLower.includes("photography") || 
+    promptLower.includes("dslr") || 
+    promptLower.includes("4k") ||
+    promptLower.includes("8k") ||
+    promptLower.includes("realistic lighting") ||
+    promptLower.includes("documentary") ||
+    promptLower.includes("human");
+
+  // Inject specific style constraints based on detected intent
+  let finalRawPrompt = rawPrompt;
+  if (isGaming) {
+    finalRawPrompt += ", voxel art, blocky style, in-game screenshot aesthetic, 3D render, ray-traced RTX shaders, hyper-distinct voxel geometry, volumetric lighting, sharp 4K textures";
+  } else if (isPhotographic) {
+    finalRawPrompt += ", DSLR, 4k, realistic lighting, documentary photography, high-resolution textures, cinematic lighting, sharp focus, masterpiece composition, 8k resolution, photorealistic";
+  }
+
+  // If the prompt is already comprehensive and detailed (> 250 chars), keep it
+  if (finalRawPrompt.length > 250) {
+    return finalRawPrompt;
+  }
+
+  try {
+    const ai = getGenAI();
+    const contents = [
+      {
+        role: "user",
+        parts: [
+          {
+            text: `You are the Master Prompt Engineer for Omnisym AI.
+Transform the following basic or short image request into a rich, immersive, 2 to 3 sentence visual masterpiece prompt for high-resolution image generation.
+
+SUBJECT RULES:
+- Gaming / Voxel (Minecraft, Roblox, Cyberpunk): If detected, strictly enforce "voxel art, blocky style, in-game screenshot aesthetic, 3D render" with ray-traced RTX shaders and volumetric atmospheric lighting. NEVER generate real humans.
+- Real-Life / Scenery / Nature: If detected, strictly enforce DSLR photography terms (DSLR, 4k, realistic lighting, documentary photography, high-resolution textures, cinematic lighting, sharp focus).
+- Quality Baseline: Naturally integrate "8K, cinematic lighting, sharp focus, masterpiece composition" into the sentences.
+
+IMPORTANT: Output ONLY the enhanced 2-3 sentence prompt without explanations, intros, or quotes.
+
+Original Request: "${finalRawPrompt}"`
+          }
+        ]
+      }
+    ];
+
+    const { response } = await generateContentWithFallback(
+      ai,
+      ["gemini-3.1-flash-lite", "gemini-flash-latest", "gemini-3.7-flash"],
+      contents,
+      {
+        generationConfig: {
+          maxOutputTokens: 250,
+          temperature: 0.65,
+        }
+      }
+    );
+
+    const expanded = (response.text || "").replace(/^["']|["']$/g, "").trim();
+    if (expanded && expanded.length > 20) {
+      return expanded;
+    }
+  } catch (err) {
+    console.warn("[Master Prompt Engineer] AI expansion fallback to heuristic:", err);
+  }
+
+  // High-Grade Heuristic Fallback
+  if (isGaming) {
+    return `A stunning, hyper-detailed voxel art masterpiece of ${rawPrompt}, featuring ray-traced RTX shader lighting, volumetric god rays streaming across blocky terrain, crisp 4K textures, dynamic water reflections, and an immersive atmospheric blocky aesthetic, 8K resolution, 3D render.`;
+  } else if (isPhotographic) {
+    return `A cinematic 8K master photograph of ${rawPrompt}, capturing realistic lighting, DSLR camera quality, documentary photography style, high-resolution organic textures, subtle atmospheric depth of field, and dramatic cinematic studio shadows.`;
+  } else {
+    return `A breathtaking National Geographic style landscape photograph of ${rawPrompt}, captured during golden hour with dramatic volumetric lighting, ultra-sharp atmospheric depth, rich hyper-detailed organic textures, and crisp 8K cinematic composition.`;
+  }
+}
 
 // API: Image Generation
 app.post("/api/generate-image", async (req, res) => {
@@ -299,9 +528,12 @@ app.post("/api/generate-image", async (req, res) => {
     return res.status(400).json({ error: "Prompt is required for image generation." });
   }
 
+  // Dynamically rewrite and elevate prompt via Master Prompt Engineer
+  const enhancedPrompt = await expandImagePromptMaster(prompt, style);
+  console.log(`[Master Prompt Engineer] Expanded "${prompt.slice(0, 40)}..." -> "${enhancedPrompt.slice(0, 80)}..."`);
+
   const ai = getGenAI();
   const candidateModels = ["gemini-3.1-flash-image", "gemini-3.1-flash-lite-image"];
-  const enhancedPrompt = `${prompt}. High detail, ${style} aesthetic, masterpiece quality, pristine lighting.`;
 
   let imageUrl: string | null = null;
   let descriptionText = "";
@@ -344,9 +576,15 @@ app.post("/api/generate-image", async (req, res) => {
         } catch (err: any) {
           const errMsg = err?.message || String(err);
           console.warn(`[Image Engine] Model ${model} attempt ${attempt + 1} error:`, errMsg.slice(0, 120));
-          if (errMsg.includes("429") && errMsg.includes("quota")) {
-            throw err;
+          
+          // If we hit a quota limit, try to respect the suggested retry delay if possible, 
+          // or use exponential backoff.
+          if (errMsg.includes("429")) {
+            const backoff = (attempt + 1) * 3000; // 3s, 6s...
+            await new Promise((resolve) => setTimeout(resolve, backoff));
+            continue;
           }
+
           if (attempt === 0) {
             await new Promise((resolve) => setTimeout(resolve, 2500));
             continue;
@@ -362,43 +600,20 @@ app.post("/api/generate-image", async (req, res) => {
 
   // Graceful visual rendering if API models are experiencing temporary high-demand spikes
   if (!imageUrl) {
-    const safePrompt = prompt.replace(/"/g, "'").slice(0, 80);
-    const svgGraphic = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="100%" height="100%">
-      <defs>
-        <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#4f46e5" />
-          <stop offset="50%" stop-color="#7c3aed" />
-          <stop offset="100%" stop-color="#db2777" />
-        </linearGradient>
-        <linearGradient id="g2" x1="100%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="#0f172a" />
-          <stop offset="100%" stop-color="#1e1b4b" />
-        </linearGradient>
-        <radialGradient id="rg" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#818cf8" stop-opacity="0.6"/>
-          <stop offset="100%" stop-color="#312e81" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <rect width="1024" height="1024" fill="url(#g2)"/>
-      <circle cx="512" cy="512" r="400" fill="url(#rg)"/>
-      <circle cx="512" cy="512" r="280" fill="none" stroke="url(#g1)" stroke-width="4" stroke-dasharray="12 12"/>
-      <circle cx="512" cy="512" r="220" fill="#090d16" stroke="#4f46e5" stroke-width="2"/>
-      <path d="M512 300 L550 430 L680 430 L575 510 L615 640 L512 560 L409 640 L449 510 L344 430 L474 430 Z" fill="url(#g1)" />
-      <text x="512" y="780" font-family="system-ui, -apple-system, sans-serif" font-size="26" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1">OMNISYM VISUAL ASSET</text>
-      <text x="512" y="820" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#cbd5e1" text-anchor="middle">"${safePrompt}"</text>
-      <text x="512" y="860" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#64748b" text-anchor="middle">High-Resolution Visual Render</text>
-    </svg>`;
-    imageUrl = `data:image/svg+xml;utf8,${encodeURIComponent(svgGraphic)}`;
-    descriptionText = `I have generated this visual composition for your request: "${prompt}"`;
+    return res.status(503).json({
+      error: "Image generation service is temporarily overloaded or quota exceeded.",
+      details: "Please try again shortly."
+    });
   }
 
   res.json({
     imageUrl,
-    prompt,
+    prompt: enhancedPrompt,
+    originalPrompt: prompt,
     aspectRatio,
     imageSize,
     modelUsed,
-    description: descriptionText.trim() || `Generated visual asset for: "${prompt}"`,
+    description: descriptionText.trim() || `Generated visual asset for: "${enhancedPrompt}"`,
   });
 });
 
@@ -457,7 +672,14 @@ app.post("/api/feedback", async (req, res) => {
 });
 
 // API: Get feedback history (for admin/settings view)
-app.get("/api/feedback", (_req, res) => {
+app.get("/api/feedback", (req, res) => {
+  // Basic security: check for admin identifier or specific header
+  // Note: For full production, use Firebase Admin SDK to verify ID tokens.
+  const adminEmail = req.headers["x-admin-email"];
+  if (adminEmail !== "apar123445@gmail.com") {
+    return res.status(403).json({ error: "Access denied. Admin only." });
+  }
+
   res.json({
     total: feedbackStore.length,
     feedbacks: feedbackStore.slice(0, 50),
@@ -481,23 +703,68 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 
 // Vite Middleware for Full-Stack App
 async function startServer() {
-  if (process.env.NODE_ENV !== "production") {
+  const nodeEnv = process.env.NODE_ENV || "development";
+  console.log(`[Omnisym Boot] Environment: ${nodeEnv}`);
+
+  if (nodeEnv !== "production") {
+    console.log("[Omnisym Boot] Initializing Vite Middleware (Development Mode)...");
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: { 
+        middlewareMode: true,
+        hmr: false,
+        host: '0.0.0.0',
+        allowedHosts: true,
+        fs: {
+          strict: false,
+          allow: [process.cwd()]
+        }
+      },
       appType: "spa",
     });
+
     app.use(vite.middlewares);
   } else {
-    const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
+    // Production Mode: Aggressive static asset serving with caching headers
+    const distPath = path.resolve(process.cwd(), "dist");
+    
+    // Serve assets with long-term caching
+    app.use("/assets", express.static(path.join(distPath, "assets"), {
+      maxAge: "1y",
+      immutable: true,
+      index: false
+    }));
+
+    // Serve public folder assets
+    app.use(express.static(distPath, {
+      maxAge: "1d",
+      index: false
+    }));
+
+    // SPA Fallback: Serve index.html for all other routes
     app.get("*", (_req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
+      res.sendFile(path.join(distPath, "index.html"), (err) => {
+        if (err) {
+          console.error("[Omnisym Server] Critical error sending index.html:", err);
+          res.status(500).send("Critical Boot Error: index.html missing in dist. Please rebuild.");
+        }
+      });
     });
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`[Omnisym Server] Running on http://0.0.0.0:${PORT}`);
+    console.log("==================================================");
+    console.log(`🚀 [Omnisym Server] Ingress: http://0.0.0.0:${PORT}`);
+    console.log(`📦 Node Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`⏱️ Startup Time: ${new Date().toLocaleString()}`);
+    console.log("==================================================");
   });
+
+  // Heartbeat logging to monitor server liveness in production
+  setInterval(() => {
+    if (process.env.NODE_ENV === "production") {
+      console.log(`[Heartbeat] ${new Date().toISOString()} - Server is responsive on port ${PORT}`);
+    }
+  }, 300000); // Every 5 minutes
 }
 
 startServer();

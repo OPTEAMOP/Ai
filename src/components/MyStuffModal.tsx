@@ -188,44 +188,44 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
           exit={{ opacity: 0, scale: 0.96, y: 15 }}
           transition={{ duration: 0.2 }}
           id="my-stuff-modal"
-          className="relative w-full max-w-4xl h-[85vh] bg-white rounded-3xl shadow-2xl border border-slate-200/90 flex flex-col overflow-hidden"
+          className="relative w-full max-w-4xl max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-slate-200/90 flex flex-col overflow-hidden"
         >
           {/* Top Bar */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50/60">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-sm">
-                <Sparkles className="w-5 h-5" />
+          <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-slate-50/60 shrink-0">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-slate-900 flex items-center justify-center text-white shadow-xs">
+                <Sparkles className="w-4 h-4 text-indigo-300" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-slate-900">My Stuff & Continuous Memory</h2>
-                <p className="text-xs text-slate-500">Your creations, code snippets, favorites & learned preferences</p>
+                <h2 className="text-sm sm:text-base font-bold text-slate-900">My Stuff & Continuous Memory</h2>
+                <p className="text-[11px] text-slate-500">Your saved creations, code snippets, favourites & learned facts</p>
               </div>
             </div>
 
             <button
               id="close-my-stuff-btn"
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
+              className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Navigation & Search Bar */}
-          <div className="px-6 py-3 border-b border-slate-100 bg-white flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="px-5 py-2.5 border-b border-slate-100 bg-white flex flex-col sm:flex-row items-center justify-between gap-2.5 shrink-0">
             {/* Tabs */}
-            <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl overflow-x-auto max-w-full">
+            <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-full overflow-x-auto no-scrollbar max-w-full">
               <button
                 type="button"
                 id="my-stuff-tab-dashboard"
                 onClick={() => setActiveTab('dashboard')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === 'dashboard'
                     ? 'bg-white text-slate-900 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
-                <BarChart3 className="w-3.5 h-3.5 text-indigo-600" />
+                <BarChart3 className="w-3.5 h-3.5" />
                 <span>Dashboard</span>
               </button>
 
@@ -233,13 +233,13 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                 type="button"
                 id="my-stuff-tab-images"
                 onClick={() => setActiveTab('images')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === 'images'
                     ? 'bg-white text-slate-900 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
-                <ImageIcon className="w-3.5 h-3.5 text-sky-500" />
+                <ImageIcon className="w-3.5 h-3.5" />
                 <span>Images ({savedImages.length})</span>
               </button>
 
@@ -247,13 +247,13 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                 type="button"
                 id="my-stuff-tab-code"
                 onClick={() => setActiveTab('code')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === 'code'
                     ? 'bg-white text-slate-900 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
-                <Code2 className="w-3.5 h-3.5 text-emerald-500" />
+                <Code2 className="w-3.5 h-3.5" />
                 <span>Code ({savedSnippets.length})</span>
               </button>
 
@@ -261,13 +261,13 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                 type="button"
                 id="my-stuff-tab-memories"
                 onClick={() => setActiveTab('memories')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === 'memories'
                     ? 'bg-white text-slate-900 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
-                <Brain className="w-3.5 h-3.5 text-violet-500" />
+                <Brain className="w-3.5 h-3.5" />
                 <span>Memory ({userMemories.length})</span>
               </button>
 
@@ -275,13 +275,13 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                 type="button"
                 id="my-stuff-tab-starred"
                 onClick={() => setActiveTab('starred')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === 'starred'
                     ? 'bg-white text-slate-900 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
-                <Star className="w-3.5 h-3.5 text-amber-500" />
+                <Star className="w-3.5 h-3.5" />
                 <span>Starred ({starredSessions.length})</span>
               </button>
 
@@ -289,121 +289,121 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                 type="button"
                 id="my-stuff-tab-commands"
                 onClick={() => setActiveTab('commands')}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === 'commands'
                     ? 'bg-white text-slate-900 shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
-                <BookOpen className="w-3.5 h-3.5 text-purple-500" />
+                <BookOpen className="w-3.5 h-3.5" />
                 <span>Cheatsheet</span>
               </button>
             </div>
 
             {/* Search */}
-            <div className="relative w-full sm:w-64">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <div className="relative w-full sm:w-56 shrink-0">
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search repository..."
-                className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-slate-800"
+                placeholder="Search repo..."
+                className="w-full pl-8 pr-3 py-1 text-xs bg-slate-50 border border-slate-200 rounded-full focus:outline-hidden focus:ring-1 focus:ring-slate-400 focus:border-slate-400 text-slate-800"
               />
             </div>
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 overflow-y-auto p-6 bg-slate-50/40">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-5 bg-slate-50/40">
             {/* Dashboard Tab */}
             {activeTab === 'dashboard' && (
-              <div className="space-y-6">
-                {/* Metric Cards Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
+              <div className="space-y-4">
+                {/* Compact Metric Cards Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  <div className="p-3 rounded-xl bg-white border border-[#E5E7EB] hover:border-slate-300 transition-colors">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-medium text-slate-500">Est. Tokens</span>
-                      <div className="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                        <Zap className="w-3.5 h-3.5" />
+                      <div className="w-5 h-5 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <Zap className="w-3 h-3" />
                       </div>
                     </div>
-                    <p className="text-xl font-bold text-slate-900 mt-2 font-mono">
+                    <p className="text-lg font-bold text-slate-900 mt-1 font-mono tracking-tight">
                       {analyticsData.totalTokens >= 1000
                         ? `${(analyticsData.totalTokens / 1000).toFixed(1)}k`
                         : analyticsData.totalTokens}
                     </p>
-                    <span className="text-[10px] text-slate-400 mt-0.5 block">
-                      ~{analyticsData.avgTokensPerMessage} tokens/message
+                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                      ~{analyticsData.avgTokensPerMessage} tok/msg
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
+                  <div className="p-3 rounded-xl bg-white border border-[#E5E7EB] hover:border-slate-300 transition-colors">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-medium text-slate-500">Interactions</span>
-                      <div className="w-6 h-6 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                        <MessageSquare className="w-3.5 h-3.5" />
+                      <div className="w-5 h-5 rounded-md bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                        <MessageSquare className="w-3 h-3" />
                       </div>
                     </div>
-                    <p className="text-xl font-bold text-slate-900 mt-2 font-mono">
+                    <p className="text-lg font-bold text-slate-900 mt-1 font-mono tracking-tight">
                       {analyticsData.totalMessages}
                     </p>
-                    <span className="text-[10px] text-slate-400 mt-0.5 block">
-                      Across {analyticsData.totalSessions} sessions
+                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                      {analyticsData.totalSessions} sessions
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
+                  <div className="p-3 rounded-xl bg-white border border-[#E5E7EB] hover:border-slate-300 transition-colors">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-medium text-slate-500">Saved Artifacts</span>
-                      <div className="w-6 h-6 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center">
-                        <ImageIcon className="w-3.5 h-3.5" />
+                      <div className="w-5 h-5 rounded-md bg-sky-50 text-sky-600 flex items-center justify-center">
+                        <ImageIcon className="w-3 h-3" />
                       </div>
                     </div>
-                    <p className="text-xl font-bold text-slate-900 mt-2 font-mono">
+                    <p className="text-lg font-bold text-slate-900 mt-1 font-mono tracking-tight">
                       {savedImages.length + savedSnippets.length}
                     </p>
-                    <span className="text-[10px] text-slate-400 mt-0.5 block">
-                      {savedImages.length} images · {savedSnippets.length} snippets
+                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                      {savedImages.length} img · {savedSnippets.length} snip
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs">
+                  <div className="p-3 rounded-xl bg-white border border-[#E5E7EB] hover:border-slate-300 transition-colors">
                     <div className="flex items-center justify-between">
                       <span className="text-[11px] font-medium text-slate-500">Learned Facts</span>
-                      <div className="w-6 h-6 rounded-lg bg-violet-50 text-violet-600 flex items-center justify-center">
-                        <Brain className="w-3.5 h-3.5" />
+                      <div className="w-5 h-5 rounded-md bg-violet-50 text-violet-600 flex items-center justify-center">
+                        <Brain className="w-3 h-3" />
                       </div>
                     </div>
-                    <p className="text-xl font-bold text-slate-900 mt-2 font-mono">
+                    <p className="text-lg font-bold text-slate-900 mt-1 font-mono tracking-tight">
                       {userMemories.length}
                     </p>
-                    <span className="text-[10px] text-slate-400 mt-0.5 block">
-                      Injected in context
+                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                      Active in context
                     </span>
                   </div>
                 </div>
 
                 {/* Daily Activity & Token Usage Bar Chart Card */}
-                <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-4">
+                <div className="p-4 rounded-xl bg-white border border-[#E5E7EB] space-y-3">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-1 border-b border-slate-100">
                     <div>
-                      <div className="flex items-center gap-2">
-                        <Activity className="w-4 h-4 text-indigo-600" />
-                        <h3 className="text-sm font-bold text-slate-900">Daily Activity & Usage Trends</h3>
+                      <div className="flex items-center gap-1.5">
+                        <Activity className="w-3.5 h-3.5 text-slate-700" />
+                        <h3 className="text-xs sm:text-sm font-bold text-slate-900">Daily Activity & Usage Trends</h3>
                       </div>
-                      <p className="text-xs text-slate-500 mt-0.5">
-                        Historical volume over the last 7 days
+                      <p className="text-[11px] text-slate-500 mt-0.5">
+                        Historical activity over the last 7 days
                       </p>
                     </div>
 
                     {/* Metric Switcher */}
-                    <div className="flex items-center p-1 bg-slate-100 rounded-xl text-xs font-semibold">
+                    <div className="flex items-center p-0.5 bg-slate-100 rounded-full text-xs font-medium">
                       <button
                         type="button"
                         onClick={() => setChartMetric('tokens')}
-                        className={`px-3 py-1 rounded-lg transition-all ${
+                        className={`px-2.5 py-0.5 rounded-full text-[11px] transition-all cursor-pointer ${
                           chartMetric === 'tokens'
-                            ? 'bg-white text-indigo-600 shadow-xs'
+                            ? 'bg-white text-slate-900 shadow-2xs font-semibold'
                             : 'text-slate-600 hover:text-slate-900'
                         }`}
                       >
@@ -412,9 +412,9 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                       <button
                         type="button"
                         onClick={() => setChartMetric('messages')}
-                        className={`px-3 py-1 rounded-lg transition-all ${
+                        className={`px-2.5 py-0.5 rounded-full text-[11px] transition-all cursor-pointer ${
                           chartMetric === 'messages'
-                            ? 'bg-white text-emerald-600 shadow-xs'
+                            ? 'bg-white text-slate-900 shadow-2xs font-semibold'
                             : 'text-slate-600 hover:text-slate-900'
                         }`}
                       >
@@ -424,7 +424,7 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                   </div>
 
                   {/* Recharts Bar Chart Container */}
-                  <div className="w-full h-56 pt-2">
+                  <div className="w-full h-48 pt-1">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart
                         data={analyticsData.daily}
@@ -434,13 +434,13 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                         <XAxis
                           dataKey="label"
                           stroke="#94a3b8"
-                          fontSize={11}
+                          fontSize={10}
                           tickLine={false}
                           axisLine={{ stroke: '#e2e8f0' }}
                         />
                         <YAxis
                           stroke="#94a3b8"
-                          fontSize={11}
+                          fontSize={10}
                           tickLine={false}
                           axisLine={false}
                           tickFormatter={(val) =>
@@ -453,9 +453,9 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                             if (active && payload && payload.length) {
                               const data = payload[0].payload;
                               return (
-                                <div className="bg-slate-900 text-white px-3 py-2.5 rounded-xl shadow-xl border border-slate-800 text-xs">
-                                  <p className="font-bold text-slate-200 mb-1.5">{data.label}</p>
-                                  <div className="space-y-1 text-[11px]">
+                                <div className="bg-slate-900 text-white px-3 py-2 rounded-xl shadow-xl border border-slate-800 text-xs">
+                                  <p className="font-bold text-slate-200 mb-1">{data.label}</p>
+                                  <div className="space-y-0.5 text-[11px]">
                                     <p className="flex items-center justify-between gap-4 text-indigo-300">
                                       <span>Est. Tokens:</span>
                                       <span className="font-mono font-bold">
@@ -480,14 +480,14 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                         <Bar
                           dataKey={chartMetric}
                           fill={chartMetric === 'tokens' ? '#6366f1' : '#10b981'}
-                          radius={[6, 6, 0, 0]}
-                          maxBarSize={36}
+                          radius={[4, 4, 0, 0]}
+                          maxBarSize={32}
                         >
                           {analyticsData.daily.map((entry, index) => {
                             const isToday = index === analyticsData.daily.length - 1;
                             return (
                               <Cell
-                                key={`cell-${index}`}
+                                key={`cell-${entry.dateStr || index}-${index}`}
                                 fill={
                                   isToday
                                     ? chartMetric === 'tokens'
@@ -507,42 +507,42 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                 </div>
 
                 {/* Persona Breakdown & Quick Shortcuts */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {/* Persona Distribution */}
-                  <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-3">
+                  <div className="p-3.5 rounded-xl bg-white border border-[#E5E7EB] space-y-2.5">
                     <div className="flex items-center justify-between">
                       <h4 className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
                         <Cpu className="w-3.5 h-3.5 text-indigo-600" />
-                        <span>Slash Command & Persona Usage</span>
+                        <span>Persona Usage</span>
                       </h4>
-                      <span className="text-[10px] text-slate-400">
-                        {analyticsData.totalMessages} total msgs
+                      <span className="text-[10px] text-slate-400 font-mono">
+                        {analyticsData.totalMessages} msgs
                       </span>
                     </div>
 
-                    <div className="space-y-2 text-xs">
+                    <div className="space-y-1.5 text-xs">
                       {[
-                        { key: 'default', label: 'Default Hinglish', color: 'bg-indigo-500' },
-                        { key: 'code', label: '/code Developer', color: 'bg-emerald-500' },
-                        { key: 'research', label: '/research Grounding', color: 'bg-sky-500' },
-                        { key: '3d', label: '/3d Graphics Specialist', color: 'bg-amber-500' },
-                        { key: 'human', label: '/human Empathy Friend', color: 'bg-pink-500' },
-                        { key: 'temp', label: '/temp Incognito', color: 'bg-slate-500' },
-                      ].map((item) => {
+                        { key: 'default', label: 'Omnisym Primary', color: 'bg-indigo-500' },
+                        { key: 'code', label: '/code Architect', color: 'bg-emerald-500' },
+                        { key: 'research', label: '/research Analytics', color: 'bg-sky-500' },
+                        { key: '3d', label: '/3d Visualizer', color: 'bg-amber-500' },
+                        { key: 'human', label: '/human Empathy', color: 'bg-pink-500' },
+                        { key: 'temp', label: '/temp Ephemeral', color: 'bg-slate-500' },
+                      ].map((item, iIdx) => {
                         const count = analyticsData.modeCounts[item.key] || 0;
                         const pct =
                           analyticsData.totalMessages > 0
                             ? Math.round((count / analyticsData.totalMessages) * 100)
                             : 0;
                         return (
-                          <div key={item.key} className="space-y-1">
+                          <div key={`persona_${item.key}_${iIdx}`} className="space-y-0.5">
                             <div className="flex items-center justify-between text-[11px]">
                               <span className="text-slate-700 font-medium">{item.label}</span>
-                              <span className="text-slate-400 font-mono">
+                              <span className="text-slate-400 font-mono text-[10px]">
                                 {count} ({pct}%)
                               </span>
                             </div>
-                            <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                            <div className="w-full h-1 rounded-full bg-slate-100 overflow-hidden">
                               <div
                                 className={`h-full rounded-full ${item.color}`}
                                 style={{ width: `${pct}%` }}
@@ -555,56 +555,56 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                   </div>
 
                   {/* Repository Overview & Quick Nav */}
-                  <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-3 flex flex-col justify-between">
-                    <div className="space-y-2">
+                  <div className="p-3.5 rounded-xl bg-white border border-[#E5E7EB] space-y-2.5 flex flex-col justify-between">
+                    <div>
                       <h4 className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
                         <TrendingUp className="w-3.5 h-3.5 text-indigo-600" />
                         <span>Quick Navigation</span>
                       </h4>
-                      <p className="text-xs text-slate-500 leading-relaxed">
-                        Access your saved multimedia assets, code blocks, and continuous learning repository directly.
+                      <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">
+                        Access your saved multimedia assets, code blocks, and memory repository.
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 pt-2">
+                    <div className="grid grid-cols-2 gap-1.5 pt-1">
                       <button
                         type="button"
                         onClick={() => setActiveTab('images')}
-                        className="p-3 rounded-xl bg-sky-50/70 hover:bg-sky-100/70 border border-sky-100 text-left transition-colors"
+                        className="p-2 rounded-lg bg-sky-50/70 hover:bg-sky-100/70 border border-sky-100 text-left transition-colors cursor-pointer"
                       >
-                        <ImageIcon className="w-4 h-4 text-sky-600 mb-1" />
-                        <p className="text-xs font-bold text-sky-950">Visual Gallery</p>
-                        <p className="text-[10px] text-sky-700">{savedImages.length} saved images</p>
+                        <ImageIcon className="w-3.5 h-3.5 text-sky-600 mb-0.5" />
+                        <p className="text-[11px] font-bold text-sky-950">Visual Gallery</p>
+                        <p className="text-[10px] text-sky-700">{savedImages.length} images</p>
                       </button>
 
                       <button
                         type="button"
                         onClick={() => setActiveTab('code')}
-                        className="p-3 rounded-xl bg-emerald-50/70 hover:bg-emerald-100/70 border border-emerald-100 text-left transition-colors"
+                        className="p-2 rounded-lg bg-emerald-50/70 hover:bg-emerald-100/70 border border-emerald-100 text-left transition-colors cursor-pointer"
                       >
-                        <Code2 className="w-4 h-4 text-emerald-600 mb-1" />
-                        <p className="text-xs font-bold text-emerald-950">Code Snippets</p>
+                        <Code2 className="w-3.5 h-3.5 text-emerald-600 mb-0.5" />
+                        <p className="text-[11px] font-bold text-emerald-950">Code Snippets</p>
                         <p className="text-[10px] text-emerald-700">{savedSnippets.length} snippets</p>
                       </button>
 
                       <button
                         type="button"
                         onClick={() => setActiveTab('memories')}
-                        className="p-3 rounded-xl bg-violet-50/70 hover:bg-violet-100/70 border border-violet-100 text-left transition-colors"
+                        className="p-2 rounded-lg bg-violet-50/70 hover:bg-violet-100/70 border border-violet-100 text-left transition-colors cursor-pointer"
                       >
-                        <Brain className="w-4 h-4 text-violet-600 mb-1" />
-                        <p className="text-xs font-bold text-violet-950">Learned Memory</p>
-                        <p className="text-[10px] text-violet-700">{userMemories.length} preferences</p>
+                        <Brain className="w-3.5 h-3.5 text-violet-600 mb-0.5" />
+                        <p className="text-[11px] font-bold text-violet-950">Memory</p>
+                        <p className="text-[10px] text-violet-700">{userMemories.length} facts</p>
                       </button>
 
                       <button
                         type="button"
                         onClick={() => setActiveTab('starred')}
-                        className="p-3 rounded-xl bg-amber-50/70 hover:bg-amber-100/70 border border-amber-100 text-left transition-colors"
+                        className="p-2 rounded-lg bg-amber-50/70 hover:bg-amber-100/70 border border-amber-100 text-left transition-colors cursor-pointer"
                       >
-                        <Star className="w-4 h-4 text-amber-600 mb-1" />
-                        <p className="text-xs font-bold text-amber-950">Favorites</p>
-                        <p className="text-[10px] text-amber-700">{starredSessions.length} starred chats</p>
+                        <Star className="w-3.5 h-3.5 text-amber-600 mb-0.5" />
+                        <p className="text-[11px] font-bold text-amber-950">Favourites</p>
+                        <p className="text-[10px] text-amber-700">{starredSessions.length} chats</p>
                       </button>
                     </div>
                   </div>
@@ -616,20 +616,42 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
             {activeTab === 'images' && (
               <div>
                 {filteredImages.length === 0 ? (
-                  <div className="text-center py-16">
-                    <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-500 flex items-center justify-center mx-auto mb-3">
-                      <ImageIcon className="w-6 h-6" />
+                  <div className="text-center py-12 px-4">
+                    {/* Minimalist SVG Illustration for Images */}
+                    <div className="w-48 h-36 mx-auto mb-4 flex items-center justify-center">
+                      <svg className="w-full h-full max-w-[200px]" viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="25" y="20" width="150" height="100" rx="16" fill="#F8FAFC" stroke="#E2E8F0" strokeWidth="1.5" strokeDasharray="4 4" />
+                        <rect x="42" y="32" width="116" height="76" rx="12" fill="#FFFFFF" stroke="#E0E7FF" strokeWidth="1.5" />
+                        {/* Sun / Aura */}
+                        <circle cx="70" cy="56" r="10" fill="#EEF2FF" stroke="#818CF8" strokeWidth="1.5" />
+                        {/* Mountains */}
+                        <path d="M48 98L76 68C78.5 65.5 82.5 65.5 85 68L105 88L118 75C120.5 72.5 124.5 72.5 127 75L152 98" stroke="#6366F1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M96 98L112 82C114 80 117 80 119 82L135 98" stroke="#A5B4FC" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        {/* Sparkle */}
+                        <path d="M142 42L144 48L150 50L144 52L142 58L140 52L134 50L140 48L142 42Z" fill="#6366F1" />
+                      </svg>
                     </div>
-                    <p className="text-sm font-semibold text-slate-800">No saved images yet</p>
-                    <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                      Ask Omnisym to generate an image or use the 'Generate Image' suggestion chip to get started.
+                    <p className="text-sm font-semibold text-slate-900">Your Visual Gallery is Empty</p>
+                    <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto leading-relaxed">
+                      Generated images and visual assets from your conversations will automatically be archived here for high-res preview and download.
                     </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onUsePrompt('Generate a modern minimalist glass architectural pavilion surrounded by serene mist');
+                        onClose();
+                      }}
+                      className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition-all active:scale-[0.98]"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Generate First Image</span>
+                    </button>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    {filteredImages.map((img) => (
+                    {filteredImages.map((img, imgIdx) => (
                       <div
-                        key={img.id}
+                        key={img.id ? `${img.id}_${imgIdx}` : `mystuff_img_${imgIdx}`}
                         className="group relative bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col"
                       >
                         <div className="relative aspect-square overflow-hidden bg-slate-100 cursor-pointer" onClick={() => setPreviewImage(img)}>
@@ -687,20 +709,47 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
             {activeTab === 'code' && (
               <div>
                 {filteredSnippets.length === 0 ? (
-                  <div className="text-center py-16">
-                    <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-3">
-                      <Code2 className="w-6 h-6" />
+                  <div className="text-center py-12 px-4">
+                    {/* Minimalist SVG Illustration for Code */}
+                    <div className="w-48 h-36 mx-auto mb-4 flex items-center justify-center">
+                      <svg className="w-full h-full max-w-[200px]" viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="25" y="20" width="150" height="100" rx="16" fill="#F8FAFC" stroke="#E2E8F0" strokeWidth="1.5" strokeDasharray="4 4" />
+                        <rect x="42" y="32" width="116" height="76" rx="12" fill="#0F172A" stroke="#1E293B" strokeWidth="1.5" />
+                        {/* Terminal Dots */}
+                        <circle cx="56" cy="44" r="3" fill="#EF4444" />
+                        <circle cx="65" cy="44" r="3" fill="#F59E0B" />
+                        <circle cx="74" cy="44" r="3" fill="#10B981" />
+                        {/* Code Lines */}
+                        <rect x="56" y="58" width="48" height="4" rx="2" fill="#6366F1" />
+                        <rect x="110" y="58" width="32" height="4" rx="2" fill="#38BDF8" />
+                        <rect x="56" y="70" width="68" height="4" rx="2" fill="#10B981" />
+                        <rect x="56" y="82" width="38" height="4" rx="2" fill="#A855F7" />
+                        <rect x="100" y="82" width="24" height="4" rx="2" fill="#94A3B8" />
+                        {/* Prompt Cursor */}
+                        <rect x="56" y="94" width="8" height="4" rx="1" fill="#F8FAFC" />
+                      </svg>
                     </div>
-                    <p className="text-sm font-semibold text-slate-800">No saved code snippets</p>
-                    <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                      Click "Save Snippet" on any generated code block in your chat to store it in your repository.
+                    <p className="text-sm font-semibold text-slate-900">No Saved Code Snippets</p>
+                    <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto leading-relaxed">
+                      Save reusable code blocks, APIs, and algorithms from your conversations to create a searchable developer library.
                     </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onUsePrompt('/code Create a TypeScript debounce hook with cancellation');
+                        onClose();
+                      }}
+                      className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-xs transition-all active:scale-[0.98]"
+                    >
+                      <Code2 className="w-3.5 h-3.5" />
+                      <span>Start a Coding Session</span>
+                    </button>
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {filteredSnippets.map((snip) => (
+                    {filteredSnippets.map((snip, snipIdx) => (
                       <div
-                        key={snip.id}
+                        key={snip.id ? `${snip.id}_${snipIdx}` : `mystuff_snip_${snipIdx}`}
                         className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs"
                       >
                         <div className="flex items-center justify-between px-4 py-2.5 bg-slate-900 text-white">
@@ -753,20 +802,31 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
             {activeTab === 'starred' && (
               <div>
                 {starredSessions.length === 0 ? (
-                  <div className="text-center py-16">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center mx-auto mb-3">
-                      <Star className="w-6 h-6" />
+                  <div className="text-center py-12 px-4">
+                    {/* Minimalist SVG Illustration for Starred */}
+                    <div className="w-48 h-36 mx-auto mb-4 flex items-center justify-center">
+                      <svg className="w-full h-full max-w-[200px]" viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="25" y="20" width="150" height="100" rx="16" fill="#F8FAFC" stroke="#E2E8F0" strokeWidth="1.5" strokeDasharray="4 4" />
+                        <rect x="42" y="32" width="116" height="76" rx="12" fill="#FFFFFF" stroke="#FEF3C7" strokeWidth="1.5" />
+                        {/* Star Badge */}
+                        <circle cx="100" cy="70" r="22" fill="#FFFBEB" stroke="#FDE68A" strokeWidth="1.5" />
+                        <path d="M100 56L103.5 64.5L112.5 65.5L106 71.5L108 80.5L100 76L92 80.5L94 71.5L87.5 65.5L96.5 64.5L100 56Z" fill="#F59E0B" stroke="#D97706" strokeWidth="1" strokeLinejoin="round" />
+                        {/* Floating sparks */}
+                        <circle cx="62" cy="50" r="2.5" fill="#FBBF24" />
+                        <circle cx="140" cy="85" r="2" fill="#FBBF24" />
+                        <path d="M136 48L137.5 52L141.5 53.5L137.5 55L136 59L134.5 55L130.5 53.5L134.5 52L136 48Z" fill="#F59E0B" />
+                      </svg>
                     </div>
-                    <p className="text-sm font-semibold text-slate-800">No starred conversations</p>
-                    <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                      Click the star icon next to any chat in your sidebar to mark it as a favorite.
+                    <p className="text-sm font-semibold text-slate-900">No Starred Conversations</p>
+                    <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto leading-relaxed">
+                      Bookmark essential conversations and key research threads by clicking the star icon in your session sidebar or header.
                     </p>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {starredSessions.map((session) => (
+                    {starredSessions.map((session, sIdx) => (
                       <div
-                        key={session.id}
+                        key={session.id ? `${session.id}_${sIdx}` : `mystuff_star_${sIdx}`}
                         onClick={() => {
                           onSelectSession(session.id);
                           onClose();
@@ -776,7 +836,7 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                         <div>
                           <div className="flex items-center justify-between">
                             <span className="text-xs font-semibold text-amber-600 flex items-center gap-1">
-                              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" /> Favorite
+                              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" /> Favourite
                             </span>
                             <span className="text-[10px] text-slate-400">
                               {new Date(session.updatedAt).toLocaleDateString()}
@@ -861,7 +921,7 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                   <div className="space-y-2.5">
                     {filteredMemories.map((memory, idx) => (
                       <div
-                        key={`mem_${idx}`}
+                        key={`mem_${idx}_${memory.slice(0, 12)}`}
                         className="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center justify-between gap-3 hover:border-violet-200 transition-colors"
                       >
                         <div className="flex items-start gap-2.5 min-w-0">
@@ -916,9 +976,9 @@ export const MyStuffModal: React.FC<MyStuffModalProps> = ({
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {SLASH_COMMANDS.map((cmd) => (
+                  {SLASH_COMMANDS.map((cmd, cIdx) => (
                     <div
-                      key={cmd.command}
+                      key={`slash_cmd_${cmd.command}_${cIdx}`}
                       className="p-4 rounded-2xl bg-white border border-slate-200 space-y-2"
                     >
                       <div className="flex items-center justify-between">

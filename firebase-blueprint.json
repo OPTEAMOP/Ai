@@ -28,6 +28,14 @@
         "pinned": {
           "type": "boolean",
           "description": "Whether the session is pinned to the top of the sidebar."
+        },
+        "category": {
+          "type": "string",
+          "description": "Auto-detected intent category (e.g. Programming, Research, Creative, Writing, Problem Solving, General)."
+        },
+        "tags": {
+          "type": "array",
+          "description": "List of auto-detected sub-tags for the conversation."
         }
       },
       "required": ["userId", "title", "createdAt", "updatedAt"]
@@ -90,7 +98,7 @@
     },
     "UserProfile": {
       "title": "UserProfile",
-      "description": "User profile with preferences and memories.",
+      "description": "User profile with preferences, status, role, and memories.",
       "type": "object",
       "properties": {
         "userId": {
@@ -105,16 +113,106 @@
           "type": "string",
           "description": "Email of the user."
         },
+        "photoURL": {
+          "type": "string",
+          "description": "Profile picture URL."
+        },
+        "role": {
+          "type": "string",
+          "description": "User role: admin, moderator, or user.",
+          "enum": ["admin", "moderator", "user"]
+        },
+        "status": {
+          "type": "string",
+          "description": "Account status: active or banned.",
+          "enum": ["active", "banned"]
+        },
+        "lastLogin": {
+          "type": "number",
+          "description": "Timestamp of the last login."
+        },
         "memories": {
           "type": "array",
           "description": "Learned facts and preferences about the user."
+        },
+        "subscription": {
+          "type": "object",
+          "description": "Premium subscription status and tier details."
         },
         "updatedAt": {
           "type": "number",
           "description": "Timestamp when updated."
         }
       },
-      "required": ["userId"]
+      "required": ["userId", "role", "status"]
+    },
+    "ActivityLog": {
+      "title": "ActivityLog",
+      "description": "Basic audit log of user authentication events.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the user who performed the action."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email of the user."
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of event (e.g. login)."
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Time of the event."
+        }
+      },
+      "required": ["userId", "type", "timestamp"]
+    },
+    "PublicShare": {
+      "title": "PublicShare",
+      "description": "Public read-only snapshot of a shared chat conversation.",
+      "type": "object",
+      "properties": {
+        "shareId": {
+          "type": "string",
+          "description": "Unique share token identifier."
+        },
+        "authorId": {
+          "type": "string",
+          "description": "The UID or guest ID of the session creator."
+        },
+        "authorName": {
+          "type": "string",
+          "description": "Display name of the author."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the shared conversation."
+        },
+        "category": {
+          "type": "string",
+          "description": "Auto-categorized intent topic."
+        },
+        "tags": {
+          "type": "array",
+          "description": "Conversation topic tags."
+        },
+        "messages": {
+          "type": "array",
+          "description": "Serialized message objects in the conversation."
+        },
+        "createdAt": {
+          "type": "number",
+          "description": "Timestamp when public share link was generated."
+        },
+        "viewCount": {
+          "type": "number",
+          "description": "Number of times the shared link was viewed."
+        }
+      },
+      "required": ["shareId", "title", "createdAt", "messages"]
     }
   },
   "firestore": {
@@ -133,6 +231,14 @@
     "/userProfiles/{profileId}": {
       "schema": "UserProfile",
       "description": "User profile documents."
+    },
+    "/activityLogs/{logId}": {
+      "schema": "ActivityLog",
+      "description": "Collection of audit logs for authentication events."
+    },
+    "/publicShares/{shareId}": {
+      "schema": "PublicShare",
+      "description": "Publicly accessible shared chat conversations."
     }
   }
 }

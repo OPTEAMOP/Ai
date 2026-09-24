@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Code2, Search, Box, HeartHandshake, ShieldAlert, Sparkles } from 'lucide-react';
+import { Code2, Search, Box, HeartHandshake, ShieldAlert, Sparkles, Flame } from 'lucide-react';
 import { SLASH_COMMANDS } from '../data/constants';
 import { SlashCommandInfo } from '../types';
 
@@ -17,6 +17,7 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   Search: <Search className="w-4 h-4 text-blue-600" />,
   Box: <Box className="w-4 h-4 text-purple-600" />,
   HeartHandshake: <HeartHandshake className="w-4 h-4 text-rose-600" />,
+  Flame: <Flame className="w-4 h-4 text-orange-600" />,
   ShieldAlert: <ShieldAlert className="w-4 h-4 text-amber-600" />,
 };
 
@@ -75,7 +76,7 @@ export const SlashCommandMenu: React.FC<SlashCommandMenuProps> = ({
             const isSelected = idx === selectedIndex;
             return (
               <button
-                key={cmd.command}
+                key={`slash_cmd_${cmd.command}_${idx}`}
                 type="button"
                 id={`slash-cmd-${cmd.type}`}
                 onClick={() => onSelect(cmd)}

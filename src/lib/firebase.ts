@@ -9,12 +9,17 @@ import {
   onAuthStateChanged,
   signOut
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, setLogLevel } from "firebase/firestore";
 
 import firebaseConfig from "../../firebase-applet-config.json";
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
+// Silence internal Firestore logs to prevent unhandled quota backoff floods
+try {
+  setLogLevel('silent');
+} catch {}
 
 // Use the specific database ID provisioned in config
 export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
@@ -23,8 +28,12 @@ export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
 export const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: 'select_account' });
 
-// Ensure persistence is set to LOCAL (which is default, but explicit is good)
-setPersistence(auth, browserLocalPersistence);
+// Ensure persistence is set to LOCAL
+if (typeof window !== 'undefined') {
+  setPersistence(auth, browserLocalPersistence).catch((err) => {
+    console.warn('Firebase persistence initialization note:', err);
+  });
+}
 
 export {
   signInWithPopup,
@@ -32,3 +41,4 @@ export {
   onAuthStateChanged,
   signOut
 };
+

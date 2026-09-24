@@ -12,13 +12,13 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({ toasts, onDismis
   return (
     <div
       id="toast-notification-container"
-      className="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"
+      className="fixed bottom-5 right-5 z-[500] flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"
       aria-live="polite"
     >
       <AnimatePresence mode="popLayout">
-        {toasts.map((toast) => (
+        {toasts.map((toast, tIdx) => (
           <motion.div
-            key={toast.id}
+            key={toast.id ? `${toast.id}_${tIdx}` : `toast_${tIdx}`}
             layout
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}

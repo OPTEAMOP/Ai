@@ -2,17 +2,96 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="google-site-verification" content="uioTCkVTjxy7-9HCwCPFQsibTqDXTnDTTXjxEQtZwic" />
     <title>Omnisym — Multi-Modal AI Assistant</title>
     <meta name="description" content="Advanced Multi-Modal AI Assistant with vision, deep reasoning, image generation, web research grounding, and slash commands." />
+    
+    <!-- LCP Optimization: Preload Critical Styles -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" as="style" />
+    
+    <link rel="icon" type="image/jpeg" href="https://cdn.discordapp.com/attachments/1539132081970487380/1539602344612859984/be47cfea-92be-4a5a-8ecd-5ee52daac97d.jpg?ex=6a86e9eb&is=6a85986b&hm=1a5c072856337920edbacbfefad54ffeb7c6a6d2d07ccea05948db5d586c7620&" />
+    <link rel="apple-touch-icon" href="https://cdn.discordapp.com/attachments/1539132081970487380/1539602344612859984/be47cfea-92be-4a5a-8ecd-5ee52daac97d.jpg?ex=6a86e9eb&is=6a85986b&hm=1a5c072856337920edbacbfefad54ffeb7c6a6d2d07ccea05948db5d586c7620&" />
+    <meta property="og:image" content="https://cdn.discordapp.com/attachments/1539132081970487380/1539602344612859984/be47cfea-92be-4a5a-8ecd-5ee52daac97d.jpg?ex=6a86e9eb&is=6a85986b&hm=1a5c072856337920edbacbfefad54ffeb7c6a6d2d07ccea05948db5d586c7620&" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#4f46e5" />
     <meta property="og:title" content="Omnisym — Multi-Modal AI Assistant" />
     <meta property="og:description" content="Advanced Multi-Modal AI Assistant with vision, deep reasoning, image generation, web research grounding, and slash commands." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>(function(s){s.dataset.zone='11665701',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
   </head>
   <body class="bg-slate-50 text-slate-900 antialiased font-sans dark:bg-[#121212] dark:text-slate-100 transition-colors duration-300">
+    <!-- Hardcoded HTML Pre-loader (Legacy safe positioning for Mobile WebViews) -->
+    <div id="omni-global-loader" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; background-color: #FFFFFF; z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; padding: 0;">
+      <div class="spinner" style="width: 40px; height: 40px; border: 4px solid #F3F4F6; border-top: 4px solid #5865F2; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+      <h3 style="color: #111827; margin-top: 20px; font-family: sans-serif;">Omnisym AI is starting...</h3>
+      <p style="color: #6B7280; font-size: 14px; font-family: sans-serif;">Connecting to secure cloud vaults</p>
+      <style>
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      </style>
+    </div>
+
     <div id="root"></div>
+
+    <!-- Diagnostic Sentinel: Logs failures to console -->
+    <script>
+      window.addEventListener('error', function(e) {
+        if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+          console.error('Asset Load Failure:', e.target.src || e.target.href);
+        }
+      }, true);
+    </script>
+
+    <script>
+      // Force Reset Function
+      window.clearOmnisymCache = function() {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+          window.location.reload(true);
+        } catch (e) {
+          window.location.reload(true);
+        }
+      };
+
+      // Proactive Network Health Diagnostic Tool
+      (function() {
+        console.group('%c🛡️ Omnisym Network Health Check', 'color: #6366f1; font-weight: bold; font-size: 12px;');
+        
+        function auditAssets() {
+          const scripts = Array.from(document.scripts);
+          const links = Array.from(document.getElementsByTagName('link'));
+          
+          console.log('%cChecking critical scripts...', 'color: #94a3b8;');
+          scripts.forEach(s => {
+            if (s.src) {
+              const status = s.complete || (window.__OMNISYM_MOUNTED__ && s.src.includes('main.tsx')) ? '✅' : '⏳';
+              console.log(`${status} Script: ${new URL(s.src).pathname.split('/').pop() || s.src} (${s.src})`);
+            }
+          });
+
+          console.log('%cChecking critical styles...', 'color: #94a3b8;');
+          links.forEach(l => {
+            if (l.rel === 'stylesheet' || l.href.includes('fonts.googleapis.com')) {
+              try {
+                const isLoaded = l.sheet && l.sheet.cssRules.length > 0;
+                console.log(`✅ Style: ${l.href.split('/').pop()} (Loaded)`);
+              } catch (e) {
+                console.warn(`⚠️ Style: ${l.href.split('/').pop()} (Possibly Blocked or Cross-Origin)`);
+              }
+            }
+          });
+          console.groupEnd();
+        }
+
+        // Run audit on load and then again after a short delay
+        window.addEventListener('load', auditAssets);
+        setTimeout(auditAssets, 3000);
+      })();
+    </script>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

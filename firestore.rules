@@ -1,21 +1,89 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Helper functions
+    function isSignedIn() { 
+      return request.auth != null; 
+    }
+    
+    // Auth token email check for super admin
+    function isSuperAdmin() {
+      return isSignedIn() && request.auth.token.email == 'apar123445@gmail.com';
+    }
+
+    function isAdmin() { 
+      return isSuperAdmin() || 
+        (isSignedIn() && 
+         exists(/databases/$(database)/documents/userProfiles/$(request.auth.uid)) && 
+         get(/databases/$(database)/documents/userProfiles/$(request.auth.uid)).data.get('role', 'user') == 'admin');
+    }
+
+    function isModerator() {
+      return isAdmin() || 
+        (isSignedIn() && 
+         exists(/databases/$(database)/documents/userProfiles/$(request.auth.uid)) && 
+         get(/databases/$(database)/documents/userProfiles/$(request.auth.uid)).data.get('role', 'user') == 'moderator');
+    }
+
+    function isBanned() {
+      return isSignedIn() && 
+        exists(/databases/$(database)/documents/userProfiles/$(request.auth.uid)) && 
+        get(/databases/$(database)/documents/userProfiles/$(request.auth.uid)).data.get('status', 'active') == 'banned';
+    }
+
+    function isActive() {
+      return isSignedIn() && !isBanned();
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
     match /chatSessions/{document} {
-      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
-      allow read, update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if isActive() && request.resource.data.userId == request.auth.uid;
+      allow read: if (isSignedIn() && resource.data.userId == request.auth.uid) || isModerator();
+      allow update: if isActive() && (resource.data.userId == request.auth.uid || request.resource.data.userId == request.auth.uid || isSuperAdmin());
+      allow delete: if isActive() && (resource.data.userId == request.auth.uid || isSuperAdmin());
     }
+    
     match /savedImages/{document} {
-      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
-      allow read, update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if isActive() && request.resource.data.userId == request.auth.uid;
+      allow read: if (isSignedIn() && resource.data.userId == request.auth.uid) || isModerator();
+      allow update, delete: if isActive() && (resource.data.userId == request.auth.uid || isSuperAdmin());
     }
+    
     match /savedSnippets/{document} {
-      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
-      allow read, update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow create: if isActive() && request.resource.data.userId == request.auth.uid;
+      allow read, update, delete: if isActive() && (resource.data.userId == request.auth.uid || isSuperAdmin());
     }
-    match /userProfiles/{document} {
-      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
-      allow read, update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    
+    match /userProfiles/{uid} {
+      allow create: if isSignedIn() && (uid == request.auth.uid || isSuperAdmin());
+      allow get: if isSignedIn() && (uid == request.auth.uid || isModerator() || isSuperAdmin());
+      allow list: if isModerator() || isSuperAdmin();
+      allow update: if isSignedIn() && (!isBanned() || isSuperAdmin()) && (
+        uid == request.auth.uid || isAdmin() || isSuperAdmin()
+      ) && (
+        !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'status']) || isAdmin() || isSuperAdmin()
+      );
+      allow delete: if isAdmin() || isSuperAdmin();
+    }
+    
+    match /activityLogs/{document} {
+      allow create: if true;
+      allow read: if isModerator() || isSuperAdmin();
+    }
+    
+    match /publicShares/{document} {
+      allow get: if true;
+      allow list: if isModerator() || isSuperAdmin();
+      allow create: if true;
+      allow update: if (isActive() && resource.data.authorId == request.auth.uid) || 
+                   (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['viewCount'])) ||
+                   isAdmin() || isSuperAdmin();
+      allow delete: if (isActive() && resource.data.authorId == request.auth.uid) || isAdmin() || isSuperAdmin();
     }
   }
 }
+

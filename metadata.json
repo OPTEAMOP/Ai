@@ -1,6 +1,6 @@
 {
   "name": "Omnisym",
   "description": "Advanced Multi-Modal AI Assistant with vision, high reasoning, image generation, web research grounding, and slash commands.",
-  "requestFramePermissions": ["camera", "microphone"],
+  "requestFramePermissions": ["camera"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

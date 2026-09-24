@@ -148,12 +148,12 @@ export const exportSessionToPdf = (session: ChatSession, userName: string = 'Use
     );
   }
 
-  // Sanitize filename
-  const sanitizedTitle = (session.title || 'omnisym_chat')
+  // Sanitise filename
+  const sanitisedTitle = (session.title || 'omnisym_chat')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '_')
     .replace(/^_+|_+$/g, '')
     .slice(0, 40);
 
-  doc.save(`${sanitizedTitle}_transcript.pdf`);
+  doc.save(`${sanitisedTitle}_transcript.pdf`);
 };

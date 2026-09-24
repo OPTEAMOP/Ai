@@ -6,7 +6,7 @@ export type ModelName =
   | 'gemini-3.1-flash-lite'
   | 'gemini-3.1-flash-image';
 
-export type SlashCommandType = 'code' | 'research' | '3d' | 'human' | 'temp';
+export type SlashCommandType = 'code' | 'research' | '3d' | 'human' | 'temp' | 'roast';
 
 export interface GroundingCitation {
   title: string;
@@ -52,7 +52,12 @@ export interface ChatSession {
   isTemp?: boolean;
   isPinned?: boolean;
   isFavorite?: boolean;
+  isArchived?: boolean;
+  isReadOnly?: boolean;
   mode?: SlashCommandType | 'default';
+  category?: string;
+  tags?: string[];
+  shareId?: string;
 }
 
 export interface UserMemoryItem {
@@ -60,6 +65,25 @@ export interface UserMemoryItem {
   fact: string;
   timestamp: number;
   source?: string;
+}
+
+export type UserRole = 'admin' | 'moderator' | 'user';
+export type UserStatus = 'active' | 'banned';
+
+export type SubscriptionTier = 'free' | 'flash' | 'student' | 'creator';
+
+export interface UserSubscription {
+  isPro: boolean;
+  tier: SubscriptionTier;
+  planName: string;
+  badge: string;
+  price: number;
+  currency: string;
+  validityDays: number;
+  activatedAt: number;
+  expiresAt: number;
+  utr?: string;
+  storageLimitGB: number;
 }
 
 export interface UserProfile {
@@ -72,6 +96,23 @@ export interface UserProfile {
   badge?: string;
   isGuest?: boolean;
   memories?: string[];
+  role?: UserRole;
+  status?: UserStatus;
+  subscription?: UserSubscription;
+  lastLogin?: number;
+  createdAt?: number;
+  updatedAt?: number;
+}
+
+export interface ActivityLog {
+  id: string;
+  userId: string;
+  email: string;
+  userName?: string;
+  isGuest?: boolean;
+  type: string;
+  details?: string;
+  timestamp: number;
 }
 
 export interface SavedImage {
@@ -118,4 +159,17 @@ export interface ToastNotification {
   title: string;
   description?: string;
   timestamp: number;
+}
+
+export interface PublicShareData {
+  shareId: string;
+  authorId?: string;
+  authorName?: string;
+  title: string;
+  category?: string;
+  tags?: string[];
+  messages: Message[];
+  createdAt: number;
+  viewCount?: number;
+  shareUrl?: string;
 }

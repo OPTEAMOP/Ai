@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
-import { Sparkles, Brain, Cpu } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Sparkles, Brain, Cpu, Zap, Search, Code2, Layers, Image as ImageIcon } from 'lucide-react';
 
 interface ThinkingAnimationProps {
   mode?: string;
@@ -8,129 +8,91 @@ interface ThinkingAnimationProps {
 }
 
 const THINKING_STEPS = [
-  'Omnisym is synthesizing multi-modal context...',
-  'Analyzing semantic structures & logic graph...',
-  'Grounding citations & validating verified sources...',
-  'Formulating optimal structured output...',
+  { text: 'Analyzing context...', icon: <Brain className="w-3 h-3" /> },
+  { text: 'Retrieving knowledge...', icon: <Search className="w-3 h-3" /> },
+  { text: 'Processing logic...', icon: <Cpu className="w-3 h-3" /> },
+  { text: 'Synthesizing response...', icon: <Zap className="w-3 h-3" /> },
 ];
 
-const IMAGE_STEPS = [
-  'Refining neural prompt & visual composition...',
-  'Calibrating lighting, geometry, and rendering pipeline...',
-  'Generating high-resolution photorealistic pixels...',
-  'Finalizing color grading and sharpening details...',
+const IMAGE_GEN_STEPS = [
+  { text: 'Parsing visual intent...', icon: <Sparkles className="w-3 h-3" /> },
+  { text: 'Framing composition...', icon: <Layers className="w-3 h-3" /> },
+  { text: 'Diffusing textures...', icon: <Zap className="w-3 h-3" /> },
+  { text: 'Finalizing render...', icon: <ImageIcon className="w-3 h-3" /> },
 ];
 
 export const ThinkingAnimation: React.FC<ThinkingAnimationProps> = ({
   mode,
   isImageGen,
 }) => {
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const steps = isImageGen ? IMAGE_STEPS : THINKING_STEPS;
+  const [stepIndex, setStepIndex] = useState(0);
+  const steps = isImageGen ? IMAGE_GEN_STEPS : THINKING_STEPS;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentStepIndex((prev) => (prev + 1) % steps.length);
-    }, 2200);
+      setStepIndex((prev) => (prev + 1) % steps.length);
+    }, 2000);
     return () => clearInterval(interval);
   }, [steps.length]);
 
   return (
     <div
       id="thinking-animation-container"
-      className="my-3 p-4.5 rounded-2xl bg-gradient-to-b from-slate-50/90 to-slate-100/50 border border-slate-200/80 shadow-xs max-w-xl"
+      className="flex items-center gap-3 py-2.5 px-4 text-sm bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm border border-slate-200/60 dark:border-zinc-800/60 rounded-2xl w-fit shadow-xs animate-in fade-in slide-in-from-left-2 duration-300"
     >
-      <div className="flex items-center gap-4">
-        {/* Custom Glowing Fluid Orb / Gyroscope Lottie Simulation */}
-        <div className="relative w-12 h-12 flex items-center justify-center shrink-0">
-          {/* Outer Pulsing Aura */}
-          <motion.div
-            animate={{
-              scale: [1, 1.25, 1],
-              opacity: [0.35, 0.7, 0.35],
-            }}
-            transition={{
-              duration: 2.4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className={`absolute inset-0 rounded-full blur-md ${
-              isImageGen
-                ? 'bg-gradient-to-tr from-sky-400 to-indigo-500'
-                : mode === 'code'
-                ? 'bg-gradient-to-tr from-emerald-400 to-teal-500'
-                : 'bg-gradient-to-tr from-violet-500 to-indigo-500'
-            }`}
-          />
-
-          {/* Rotating Orbital Ring 1 */}
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-            className="absolute inset-1 rounded-full border-1.5 border-dashed border-indigo-400/60"
-          />
-
-          {/* Counter-Rotating Orbital Ring 2 */}
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-            className="absolute inset-2.5 rounded-full border border-violet-400/80"
-          />
-
-          {/* Center Glowing Core */}
-          <motion.div
-            animate={{
-              scale: [0.9, 1.1, 0.9],
-            }}
-            transition={{
-              duration: 1.6,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className={`relative w-6 h-6 rounded-full flex items-center justify-center text-white shadow-sm ${
-              isImageGen
-                ? 'bg-gradient-to-br from-sky-500 to-indigo-600'
-                : mode === 'code'
-                ? 'bg-gradient-to-br from-emerald-500 to-teal-600'
-                : 'bg-gradient-to-br from-violet-600 to-indigo-700'
-            }`}
-          >
-            {isImageGen ? (
-              <Sparkles className="w-3 h-3 animate-spin" style={{ animationDuration: '3s' }} />
-            ) : mode === 'code' ? (
-              <Cpu className="w-3 h-3" />
-            ) : (
-              <Brain className="w-3 h-3" />
-            )}
-          </motion.div>
+      {/* Icon with Ring Animation */}
+      <div className="relative flex items-center justify-center shrink-0">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 rounded-full border border-indigo-500/30 border-t-indigo-500"
+        />
+        <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-950/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 z-10">
+          {isImageGen ? (
+            <Sparkles className="w-4 h-4 animate-pulse" />
+          ) : (
+            <Brain className="w-4 h-4" />
+          )}
         </div>
+      </div>
 
-        {/* Textual Feedback */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">
-              Omnisym Neural Thinking
-            </span>
-            {mode && mode !== 'default' && (
-              <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-100">
-                /{mode}
+      {/* Dynamic Text Steps */}
+      <div className="flex flex-col min-w-[140px]">
+        <div className="h-5 overflow-hidden relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={stepIndex}
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-zinc-200 uppercase tracking-widest"
+            >
+              <span className="text-indigo-500 dark:text-indigo-400">
+                {steps[stepIndex].icon}
               </span>
-            )}
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping" />
+              <span>{steps[stepIndex].text}</span>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+        
+        <div className="flex items-center gap-1.5 mt-0.5">
+          <span className="text-[10px] font-medium text-slate-400 dark:text-zinc-500">
+            {isImageGen ? 'Omnisym Creative Engine' : 'Omnisym Reasoning Path'}
+          </span>
+          <div className="flex gap-0.5">
+            {[0, 1, 2].map((i) => (
+              <motion.div
+                key={`thinking-${i}`}
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
+                className="w-1 h-1 rounded-full bg-indigo-500/50"
+              />
+            ))}
           </div>
-
-          <motion.p
-            key={currentStepIndex}
-            initial={{ opacity: 0, y: 3 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -3 }}
-            transition={{ duration: 0.3 }}
-            className="text-sm font-medium text-slate-700 mt-0.5 truncate"
-          >
-            {steps[currentStepIndex]}
-          </motion.p>
         </div>
       </div>
     </div>
   );
 };
+

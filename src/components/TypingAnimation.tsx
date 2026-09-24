@@ -10,7 +10,7 @@ export const TypingAnimation: React.FC = () => {
       <span className="text-xs font-medium text-slate-500 mr-1">Omnisym is writing</span>
       {[0, 1, 2].map((i) => (
         <motion.span
-          key={i}
+          key={`typing-${i}`}
           className="w-1.5 h-1.5 rounded-full bg-indigo-500"
           animate={{
             y: [0, -5, 0],

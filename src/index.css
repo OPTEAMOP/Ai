@@ -2,13 +2,107 @@
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
+  :root {
+    --bg-main: #ffffff;
+    --bg-sidebar: #f8fafc;
+    --bg-bubble-user: #4f46e5;
+    --bg-bubble-ai: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --accent-color: #6366f1;
+  }
+
+  [data-theme="dark"] {
+    --bg-main: #0f172a;
+    --bg-sidebar: #1e293b;
+    --bg-bubble-user: #6366f1;
+    --bg-bubble-ai: #334155;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --border-color: #334155;
+    --accent-color: #818cf8;
+  }
+
   body {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 400;
     line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-main);
+    height: 100dvh;
+    overflow: hidden;
+    overflow-x: hidden;
+    width: 100vw;
+    position: fixed;
+    touch-action: manipulation;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.04em;
+  }
+  
+  button, a, input, select, textarea {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   code, pre, kbd {
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  img {
+    object-fit: cover;
+    font-size: 0;
+  }
+
+  .avatar-circle {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 9999px;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    display: block;
+    flex-shrink: 0;
+  }
+
+  /* Performance: Virtual scroll hint for long lists */
+  .optimize-gpu {
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .virtual-scroll-area {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 100px;
+  }
+
+  .glass-card {
+    @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-800/20 shadow-xl;
+  }
+
+  .premium-shadow {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Strip expensive effects on mobile to save GPU/Battery */
+@media (max-width: 768px) {
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  .glass-effect {
+    background: var(--bg-main) !important;
+    backdrop-filter: none !important;
   }
 }
 
@@ -27,4 +121,157 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(148, 163, 184, 0.8);
 }
+
+/* Easter Egg: Do a Flip 360 Animation */
+@keyframes doAFlip {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(0.92);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.animate-do-a-flip {
+  animation: doAFlip 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: center center;
+}
+
+/* Easter Egg: Matrix Green Scanline Theme */
+.matrix-mode-active {
+  box-shadow: inset 0 0 100px rgba(0, 255, 102, 0.2), 0 0 20px rgba(0, 255, 102, 0.4);
+  border-color: rgba(34, 197, 94, 0.6) !important;
+}
+
+/* 🌟 OMNISYM PREMIUM ACCOUNT MODAL CSS */
+.omni-modal-container {
+  width: 340px;
+  max-width: 90vw;
+  background-color: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  border: 1px solid #e5e7eb;
+  margin: auto;
+  max-height: 85vh;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.omni-modal-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.omni-profile-header {
+  padding: 28px 20px 16px;
+  text-align: center;
+}
+
+.omni-user-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 2px 0;
+}
+
+.omni-user-email {
+  font-size: 13px;
+  color: #4b5563;
+  margin: 0 0 14px 0;
+}
+
+.omni-edit-btn {
+  display: inline-block;
+  padding: 6px 20px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 100px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.omni-edit-btn:hover {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.omni-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 6px 0;
+}
+
+.omni-action-list {
+  padding: 6px 0;
+}
+
+.omni-action-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  color: #374151;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.omni-action-item:hover {
+  background-color: #f3f4f6;
+}
+
+.omni-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.omni-discord-item .omni-icon {
+  color: #5865F2; /* Discord Purple */
+}
+
+.omni-signout-item {
+  color: #dc2626; /* Red for Sign Out */
+}
+
+.omni-signout-item .omni-icon {
+  color: #dc2626;
+}
+
+.omni-footer {
+  padding: 16px 24px 20px;
+  text-align: center;
+}
+
+.omni-footer-link {
+  font-size: 12px;
+  color: #6b7280;
+  text-decoration: none;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.omni-footer-link:hover {
+  color: #374151;
+  text-decoration: underline;
+}
+
+
 
